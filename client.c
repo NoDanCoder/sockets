@@ -89,7 +89,7 @@ int main(int ac, char *av[])
 
 		/*  */
 
-		printf("- ");
+		printf(" - ");
 		bzero(buffer, 256);
 		fgets(buffer, 255, stdin);
 		bytes_sr = write(sockfd, buffer, strlen(buffer));
@@ -99,7 +99,7 @@ int main(int ac, char *av[])
 		bytes_sr = read(sockfd,buffer,255);
 		if (bytes_sr < 0) 
 			error("ERROR reading from socket");
-		printf("+ %s\n",buffer);
+		printf(" + %s\n\n",buffer);
 	}
 
 	return 0;

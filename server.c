@@ -99,7 +99,7 @@ int main(int ac, char *av[])
 
 		/* print message */
 
-		printf("+ %s\n - ", buffer);
+		printf(" + %s\n\n - ", buffer);
 
 		/*  */
 
