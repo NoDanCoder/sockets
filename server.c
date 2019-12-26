@@ -91,11 +91,13 @@ int main(int ac, char *av[])
 
 	/* print message */
 
-	printf("Here is the message: %s\n", buffer);
+	printf("Recibido: %s\n", buffer);
 
 	/*  */
 
-	bytes_sr = write(newsockfd, "Thats ok recived", 16);
+	bzero(buffer, 256);
+	fgets(buffer, 256, stdin);
+	bytes_sr = write(newsockfd, buffer, strlen(buffer));
 	if (bytes_sr < 0)
 		error("ERROR writing to socket");
 
