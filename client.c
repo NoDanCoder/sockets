@@ -17,6 +17,10 @@
 
 #define CONSTANTb AF_INET
 
+/* size buffer */
+
+#define BUFSIZE 256
+
 /* Handle error function */
 
 void error(char *msg)
@@ -33,7 +37,7 @@ int main(int ac, char *av[])
 
 	struct hostent *server;
 
-	char buffer[256];
+	char buffer[BUFSIZE];
 
 	/* check if hostname was given */
 
@@ -82,25 +86,30 @@ int main(int ac, char *av[])
 
 	/*--------------------------------------------------------------------*/
 
-	int i = 0;
 	
-	for (i = 0; i < 10; i++)
+	if ( fork() )
 	{
-
-		/*  */
-
-		printf(" - ");
-		bzero(buffer, 256);
-		fgets(buffer, 255, stdin);
-		printf("\n");
-		bytes_sr = write(sockfd, buffer, strlen(buffer));
-		if (bytes_sr < 0) 
-			error("ERROR writing to socket");
-		bzero(buffer,256);
-		bytes_sr = read(sockfd,buffer,255);
-		if (bytes_sr < 0) 
-			error("ERROR reading from socket");
-		printf(" + %s\n",buffer);
+		while (1)
+		{
+			bzero(buffer, BUFSIZE);
+			write(stdout, " s: ", 3);
+			fgets(buffer, BUFSIZE, stdin);
+			bytes_sr = write(newsockfd, buffer, strlen(buffer));
+			if (bytes_sr < 0)
+				error("ERROR writing to socket");
+		}
+	}
+	else
+	{
+		setsid();
+		while (1)
+		{
+			bzero(buffer, BUFSIZE);
+			bytes_sr = read(newsockfd, buffer, BUFSIZE);
+			if (bytes_sr < 0)
+				error("ERROR writing to socket");
+			printf(" r: %s", buffer);
+		}
 	}
 
 	return 0;
