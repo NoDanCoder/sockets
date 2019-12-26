@@ -80,18 +80,27 @@ int main(int ac, char *av[])
 	if ( connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0 )
 		error("ERROR Conecting");
 
-	/*  */
+	/*--------------------------------------------------------------------*/
 
-	printf("Please enter the message: ");
-	bzero(buffer, 256);
-	fgets(buffer, 255, stdin);
-	bytes_sr = write(sockfd, buffer, strlen(buffer));
-	if (bytes_sr < 0) 
-		error("ERROR writing to socket");
-	bzero(buffer,256);
-	bytes_sr = read(sockfd,buffer,255);
-	if (bytes_sr < 0) 
-		error("ERROR reading from socket");
-	printf("%s\n",buffer);
+	int i = 0;
+	
+	for (i = 0; i < 10; i++)
+	{
+
+		/*  */
+
+		printf("- ");
+		bzero(buffer, 256);
+		fgets(buffer, 255, stdin);
+		bytes_sr = write(sockfd, buffer, strlen(buffer));
+		if (bytes_sr < 0) 
+			error("ERROR writing to socket");
+		bzero(buffer,256);
+		bytes_sr = read(sockfd,buffer,255);
+		if (bytes_sr < 0) 
+			error("ERROR reading from socket");
+		printf("+ %s\n",buffer);
+	}
+
 	return 0;
 }

@@ -83,24 +83,33 @@ int main(int ac, char *av[])
 	if (newsockfd < 0)
 		error("ERROR on accept");
 
-	/* clean buffer, and wait for a message from a client, store it on the buffer */
+	/*------------------------------------------------------------------------------------*/
+	
 
-	bzero(buffer, 256);
-	bytes_sr = read(newsockfd, buffer, 256);
-	if (bytes_sr < 0)
-		error("ERROR on read from new socket");
+	int i = 0;
+	for (i = 0; i < 10; i++)
+	{
 
-	/* print message */
+		/* clean buffer, and wait for a message from a client, store it on the buffer */
 
-	printf("Recibido: %s\n", buffer);
+		bzero(buffer, 256);
+		bytes_sr = read(newsockfd, buffer, 256);
+		if (bytes_sr < 0)
+			error("ERROR on read from new socket");
 
-	/*  */
+		/* print message */
 
-	bzero(buffer, 256);
-	fgets(buffer, 256, stdin);
-	bytes_sr = write(newsockfd, buffer, strlen(buffer));
-	if (bytes_sr < 0)
-		error("ERROR writing to socket");
+		printf("+ %s\n - ", buffer);
+
+		/*  */
+
+		bzero(buffer, 256);
+		fgets(buffer, 256, stdin);
+		bytes_sr = write(newsockfd, buffer, strlen(buffer));
+		if (bytes_sr < 0)
+			error("ERROR writing to socket");
+
+	}
 
 	/* Finish the program */
 
