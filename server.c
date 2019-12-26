@@ -99,12 +99,13 @@ int main(int ac, char *av[])
 
 		/* print message */
 
-		printf(" + %s\n\n - ", buffer);
+		printf(" + %s\n - ", buffer);
 
 		/*  */
 
 		bzero(buffer, 256);
 		fgets(buffer, 256, stdin);
+		printf("\n");
 		bytes_sr = write(newsockfd, buffer, strlen(buffer));
 		if (bytes_sr < 0)
 			error("ERROR writing to socket");
