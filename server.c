@@ -74,7 +74,6 @@ int main(int ac, char *av[])
 	/* allow to "sockfd" to recive conections and set max num of conection nodes */
 
 	listen(sockfd, 5);
-	printf("Mi ip address: %s\n", inet_ntoa(serv_addr.sin_addr));
 
 	/* stop process upto recive a successfull conection, comunicaction will be
 	 * handlen on the new socket "newsockfd", this does not kill "sockfd" process
@@ -88,6 +87,8 @@ int main(int ac, char *av[])
 
 	/*------------------------------------------------------------------------------------*/
 	
+	printf("Conected...\n\n");
+
 	if ( fork() )
 	{
 		while (1)
