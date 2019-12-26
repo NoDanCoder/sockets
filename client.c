@@ -86,7 +86,8 @@ int main(int ac, char *av[])
 
 	/*--------------------------------------------------------------------*/
 
-	
+	printf("Conected...\n\n");
+
 	if ( fork() )
 	{
 		while (1)
@@ -94,7 +95,7 @@ int main(int ac, char *av[])
 			bzero(buffer, BUFSIZE);
 			write(stdout, " s: ", 3);
 			fgets(buffer, BUFSIZE, stdin);
-			bytes_sr = write(newsockfd, buffer, strlen(buffer));
+			bytes_sr = write(sockfd, buffer, strlen(buffer));
 			if (bytes_sr < 0)
 				error("ERROR writing to socket");
 		}
@@ -105,7 +106,7 @@ int main(int ac, char *av[])
 		while (1)
 		{
 			bzero(buffer, BUFSIZE);
-			bytes_sr = read(newsockfd, buffer, BUFSIZE);
+			bytes_sr = read(sockfd, buffer, BUFSIZE);
 			if (bytes_sr < 0)
 				error("ERROR writing to socket");
 			printf(" r: %s", buffer);
