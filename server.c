@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/socket.h> 
 #include <netinet/in.h> 
+#include <unistd.h>
 
 /* creeate socket */
 
@@ -94,7 +95,7 @@ int main(int ac, char *av[])
 		while (1)
 		{
 			bzero(buffer, BUFSIZE);
-			write(stdout, " s: ", 3);
+			write(1, " s: ", 3);
 			fgets(buffer, BUFSIZE, stdin);
 			bytes_sr = write(newsockfd, buffer, strlen(buffer));
 			if (bytes_sr < 0)
